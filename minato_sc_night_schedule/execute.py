@@ -1,5 +1,9 @@
 # For Example.
 # $python execute.py http://livedoor.blogimg.jp/minatoku_sposen/imgs/0/6/063bb318.png
+# 0-2のどれかの数字が返ってくる。
+# 0: 全台利用可能
+# 1: 一部の台を除いて利用可能
+# 2: 利用不可能
 
 import sys
 import numpy as np
