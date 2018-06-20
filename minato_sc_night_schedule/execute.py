@@ -1,9 +1,9 @@
 # For Example.
 # $python execute.py http://livedoor.blogimg.jp/minatoku_sposen/imgs/0/6/063bb318.png
-# 0-2のどれかの数字が返ってくる。
-# 0: 全台利用可能
-# 1: 一部の台を除いて利用可能
-# 2: 利用不可能
+# return int number(range of 0 - 2)
+# 0: available.
+# 1: a part of available.
+# 2: disavailable.
 
 import sys
 import numpy as np
@@ -22,14 +22,16 @@ CROP_WIDTH = 100
 CROP_HEIGHT = 110
 CHANNEL = 3
 
-model = load_model('./minatoku_sc20180620013645.hdf5')
-args = sys.argv
-img_url = args[1]
-file = io.BytesIO(urlopen(img_url).read())
-img = Image.open(file)
-img = img.crop((CROP_X, CROP_Y, CROP_X + CROP_WIDTH, CROP_Y + CROP_HEIGHT)).resize((WIDTH, HEIGHT))
-im = np.array(img)
-im = im[...,:CHANNEL]
-test_x = np.array([im])
-pred_y = model.predict(test_x)
-print(np.argmax(pred_y))
+if __name__ == '__main__':
+    args = sys.argv
+    img_url = args[1]
+    model_path = args[2] if len(args) == 3 else ('./minatoku_sc20180620013645.hdf5')
+    model = load_model(model_path)
+    file = io.BytesIO(urlopen(img_url).read())
+    img = Image.open(file)
+    img = img.crop((CROP_X, CROP_Y, CROP_X + CROP_WIDTH, CROP_Y + CROP_HEIGHT)).resize((WIDTH, HEIGHT))
+    im = np.array(img)
+    im = im[...,:CHANNEL]
+    test_x = np.array([im])
+    pred_y = model.predict(test_x)
+    print(np.argmax(pred_y))
