@@ -1,3 +1,4 @@
+# !/usr/bin/env python
 # For Example.
 # $python execute.py http://livedoor.blogimg.jp/minatoku_sposen/imgs/0/6/063bb318.png
 # return int number(range of 0 - 2)
